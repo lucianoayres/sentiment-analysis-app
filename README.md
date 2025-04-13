@@ -1,105 +1,41 @@
----
-title: analise-de-sentimentos-avaliacao-de-produtos
-app_file: app.py
-sdk: gradio
-sdk_version: 3.38.0
----
-# BERT Sentiment Classifier Gradio Demo
+# 🎯 Análise de Sentimento em Avaliações de Produtos
 
-This repository demonstrates how to set up and run a sentiment classifier built with BERT for product reviews using a Gradio interface. The classifier predicts whether a review is **positive** or **negative**.
+Este sistema analisa o sentimento em avaliações de produtos em português usando o modelo BERT com fine-tuning em dados do e-commerce brasileiro.
 
-The model is hosted on Hugging Face and can be found here:
-- **Model Repository:** [layers2024/bert-sentiment](https://huggingface.co/layers2024/bert-sentiment/tree/main)
-- **Configuration:** [config.json](https://huggingface.co/layers2024/bert-sentiment/blob/main/config.json)
-- **Pre-trained Weights:** [tf_model.h5](https://huggingface.co/layers2024/bert-sentiment/blob/main/tf_model.h5)
+## 🤖 Modelo
+Utiliza o modelo [BERT fine-tuned para análise de sentimentos](https://huggingface.co/layers2024/bert-sentiment), treinado com o dataset [Olist Store](https://www.kaggle.com/datasets/olistbr/brazilian-ecommerce/data), um conjunto público de mais de 100 mil avaliações de e-commerce brasileiro feitas entre 2016 e 2018.
 
-## Prerequisites
+## 🎯 Projeto
+Desenvolvido como parte do projeto NLP-Sentinel por [Luciano Ayres](https://linkedin.com/in/lucianoayres).
 
-- **Python 3.10+**
-- [Git](https://git-scm.com) (optional, if you wish to clone the repository)
-- A Hugging Face account (free) – [Sign Up](https://huggingface.co/join)
+## 💻 Instalação Local
 
-## Local Setup Instructions
+### Pré-requisitos
+- Python 3.10+
+- Git (opcional)
 
-### 1. Create and Activate a Virtual Environment
+### Instalação
 
-It is best to use a Python virtual environment to avoid conflicts with existing packages.
-
-#### On macOS/Linux:
+1. Clone o repositório:
 ```bash
-python3 -m venv venv
-source venv/bin/activate
+git clone git@github.com:lucianoayres/sentiment-analysis-app.git
+cd sentiment-analysis-app
 ```
 
-#### On Windows:
+2. Execute o script de instalação e inicialização:
 ```bash
-python -m venv venv
-venv\Scripts\activate
+./run.sh
 ```
 
-### 2. Install Required Dependencies
+O script irá:
+- Criar um ambiente virtual Python
+- Instalar as dependências necessárias
+- Iniciar a aplicação
 
-Upgrade pip and install the necessary packages:
-```bash
-pip install --upgrade pip
-pip install gradio tensorflow transformers
-```
+## 🌐 Demo Online
 
-### 3. Create the Gradio Application
-
-Create a file named `app.py` (or any name you prefer) in your working directory and paste the following code:
-
-```python
-import gradio as gr
-from transformers import AutoTokenizer, TFAutoModelForSequenceClassification
-import tensorflow as tf
-
-# Set the model name hosted on Hugging Face
-model_name = "layers2024/bert-sentiment"
-
-# Load the tokenizer and model from Hugging Face
-tokenizer = AutoTokenizer.from_pretrained(model_name)
-model = TFAutoModelForSequenceClassification.from_pretrained(model_name)
-
-def predict_sentiment(review_text):
-    # Tokenize the input text with truncation and padding enabled
-    inputs = tokenizer(review_text, return_tensors="tf", truncation=True, padding=True)
-    
-    # Run inference using the model to get the logits
-    outputs = model(**inputs)
-    logits = outputs.logits
-    
-    # Convert logits to probabilities using softmax
-    probabilities = tf.nn.softmax(logits, axis=-1)
-    
-    # Get the class with the highest probability (0: negative, 1: positive)
-    predicted_class = tf.math.argmax(probabilities, axis=-1).numpy()[0]
-    
-    # Map the predicted class index to the corresponding sentiment label
-    sentiment_mapping = {0: "negative", 1: "positive"}
-    return sentiment_mapping[predicted_class]
-
-# Define the Gradio interface for the sentiment classifier
-interface = gr.Interface(
-    fn=predict_sentiment,
-    inputs="textbox",
-    outputs="textbox",
-    title="Product Review Sentiment Classifier",
-    description="Enter a product review and click Submit to see if it is positive or negative."
-)
-
-# Launch the Gradio app; setting share=True provides a shareable public link (valid for 72 hours)
-if __name__ == "__main__":
-    interface.launch(share=True)
-```
-
-### 4. Run the Application Locally
-
-With your virtual environment activated, run the app by executing:
-
-```bash
-python app.py
-```
+Você pode acessar uma versão online da aplicação em:
+[https://huggingface.co/spaces/layers2024/analise-de-sentimentos-avaliacao-de-produtos](https://huggingface.co/spaces/layers2024/analise-de-sentimentos-avaliacao-de-produtos)
 
 Gradio will:
 - Start a local server (usually accessible at [http://localhost:7860](http://localhost:7860))
@@ -147,3 +83,7 @@ Share this URL with others to allow them to interact with your Gradio demo direc
   - The initial launch might take extra time as your model files download from Hugging Face.
 
 For further details, please refer to the [Gradio Documentation](https://gradio.app/docs/) and the [Hugging Face Transformers Documentation](https://huggingface.co/docs/transformers).
+=======
+# sentiment-analysis-app
+App de anális de sentimento em avaliações de produtos em português usando BERT com fine-tuning em dados do e-commerce brasileiro.
+>>>>>>> 42cb5fa7402ec14e53cdffc7568dcf02fc9750fe
