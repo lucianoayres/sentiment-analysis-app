@@ -1,3 +1,9 @@
+---
+title: analise-de-sentimentos-avaliacao-de-produtos
+app_file: app.py
+sdk: gradio
+sdk_version: 3.38.0
+---
 # BERT Sentiment Classifier Gradio Demo
 
 This repository demonstrates how to set up and run a sentiment classifier built with BERT for product reviews using a Gradio interface. The classifier predicts whether a review is **positive** or **negative**.
