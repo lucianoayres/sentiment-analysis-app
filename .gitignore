@@ -51,6 +51,8 @@ cached_*
 # Gradio
 flagged/
 gradio_cached_examples/
+.gradio/
+*.pem
 
 # Logs
 *.log
