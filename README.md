@@ -1,3 +1,9 @@
+---
+title: sentiment-analysis
+app_file: app.py
+sdk: gradio
+sdk_version: 5.25.0
+---
 # 🎯 Análise de Sentimento em Avaliações de Produtos
 
 Este sistema analisa o sentimento em avaliações de produtos em português usando o modelo BERT com fine-tuning em dados do e-commerce brasileiro.

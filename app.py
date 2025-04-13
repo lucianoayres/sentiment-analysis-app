@@ -81,9 +81,11 @@ with gr.Blocks() as interface:
                 placeholder="Digite aqui a avaliação do produto...",
                 lines=4
             )
-            with gr.Row():
-                clear_btn = gr.Button("Limpar", variant="secondary")
-                analyze_btn = gr.Button("Analisar Sentimento", variant="primary")
+            with gr.Row(equal_height=True):
+                with gr.Column(scale=1, min_width=100):
+                    clear_btn = gr.Button("Limpar", variant="secondary", size="lg")
+                with gr.Column(scale=2, min_width=200):
+                    analyze_btn = gr.Button("Analisar Sentimento", variant="primary", size="lg")
         
         with gr.Column(scale=1):
             output_text = gr.Textbox(
@@ -138,4 +140,4 @@ interface.css = css
 
 # Launch the Gradio app
 if __name__ == "__main__":
-    interface.launch(share=True)
+    interface.launch()
